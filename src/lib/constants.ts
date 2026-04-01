@@ -27,22 +27,12 @@ export type ServiceItem = {
   description: string;
 };
 
-function resolveSiteUrl(): string {
-  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (explicit) return explicit.replace(/\/+$/, "");
-
-  const vercel = process.env.VERCEL_URL?.trim();
-  if (vercel) return `https://${vercel}`.replace(/\/+$/, "");
-
-  return "https://www.serrurier-94-pro.fr";
-}
-
 export const SITE_CONFIG = {
   name: "Serrurier 94 Pro",
   phone: "01 87 66 71 26",
   phoneHref: "tel:+33187667126",
   email: "depannage.serrurierpro94@gmail.com",
-  url: resolveSiteUrl(),
+  url: "https://www.serrurier-94-pro.fr",
   address: "Val-de-Marne (94), Île-de-France",
   openingHours: "24h/24 - 7j/7",
   rating: 4.9,
