@@ -40,7 +40,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href={SITE_CONFIG.phoneHref}
-            className="rounded-full bg-brand-orange px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-orange/90"
+            className="rounded-full bg-brand-orange px-4 py-2.5 text-base font-bold text-white shadow-md transition hover:bg-brand-orange/90 sm:px-5"
           >
             📞 {SITE_CONFIG.phone}
           </Link>

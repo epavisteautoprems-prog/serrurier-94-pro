@@ -17,9 +17,21 @@ export function localBusinessJsonLd(args?: {
   const offers = SERVICES.slice(0, 2).map((s) => offerForService(s));
   const url = args?.pageUrl ?? SITE_CONFIG.url;
 
+  const cityBlock =
+    args?.cityName && args?.postalCode
+      ? {
+          "@type": "City",
+          name: args.cityName,
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: areaName,
+          },
+        }
+      : { "@type": "AdministrativeArea", name: areaName };
+
   return {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["Locksmith", "LocalBusiness"],
     "@id": `${SITE_CONFIG.url.replace(/\/+$/, "")}/#business`,
     name: SITE_CONFIG.name,
     description: SITE_CONFIG.description,
@@ -27,10 +39,7 @@ export function localBusinessJsonLd(args?: {
     telephone: SITE_CONFIG.phone,
     priceRange: "€€",
     openingHours: ["Mo-Su 00:00-24:00"],
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: areaName,
-    },
+    areaServed: cityBlock,
     address: {
       "@type": "PostalAddress",
       addressRegion: areaName,
@@ -75,11 +84,6 @@ export function websiteJsonLd(args?: { siteUrl?: string }) {
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
     name: SITE_CONFIG.name,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   } as const;
 }
 

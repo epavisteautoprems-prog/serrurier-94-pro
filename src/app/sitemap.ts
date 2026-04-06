@@ -17,6 +17,12 @@ const STATIC_ROUTES: readonly { path: string; priority: number }[] = [
   { path: "/a-propos", priority: 0.6 },
   { path: "/mentions-legales", priority: 0.2 },
   { path: "/blog", priority: 0.7 },
+  { path: "/serrurier-pas-cher-94", priority: 0.88 },
+  { path: "/serrurier-urgence-94", priority: 0.88 },
+  { path: "/ouverture-porte-sans-casse-94", priority: 0.88 },
+  { path: "/serrurier-agree-94", priority: 0.88 },
+  { path: "/serrurier-artisan-94", priority: 0.88 },
+  { path: "/faux-serruriers", priority: 0.85 },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

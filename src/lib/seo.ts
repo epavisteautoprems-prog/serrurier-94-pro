@@ -7,6 +7,8 @@ export type SeoPage = {
   path: string;
   canonical?: string;
   noindex?: boolean;
+  /** Mots-clés ciblés (pages locales, guides) — utile pour certains moteurs / partages */
+  keywords?: readonly string[];
 };
 
 function absoluteUrl(path: string): string {
@@ -26,6 +28,7 @@ export function buildMetadata(page: SeoPage): Metadata {
     metadataBase: new URL(SITE_CONFIG.url),
     title,
     description: page.description,
+    ...(page.keywords?.length ? { keywords: [...page.keywords] } : {}),
     alternates: { canonical: url },
     robots: page.noindex
       ? { index: false, follow: false }

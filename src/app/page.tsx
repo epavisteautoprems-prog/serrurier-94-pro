@@ -10,6 +10,7 @@ import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { BrandsPartners } from "@/components/home/BrandsPartners";
 import { GuaranteesSection } from "@/components/home/GuaranteesSection";
 import { ZonesInterventionRich } from "@/components/home/ZonesInterventionRich";
+import { GeoTrustSection } from "@/components/home/GeoTrustSection";
 import { buildMetadata } from "@/lib/seo";
 
 const StatsSection = dynamicImport(() => import("@/components/home/StatsSection").then((m) => m.StatsSection), {
@@ -47,6 +48,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection />
+      <GeoTrustSection />
       <TrustBar />
       <QuoteForm />
       <ServicesGrid />

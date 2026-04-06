@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PRIORITY_VILLES_SLUGS, SERVICES, SITE_CONFIG, getVilleBySlug } from "@/lib/constants";
+import { getRuesPrincipales } from "@/lib/ville-streets";
 import { faqPageJsonLd, localBusinessJsonLd } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
@@ -68,6 +69,18 @@ export function VillePageTemplate({ slug }: Props) {
   const delai = ville.delai ?? `${SITE_CONFIG.delai} (selon trafic)`;
   const introHint = ville.introHint ?? `Dans ${ville.name}, autour de ${quartiers}`;
   const { v1, v2, v3 } = sentenceVariants(seed);
+  const rues = getRuesPrincipales(slug);
+
+  const vieLocale = pick(
+    [
+      `Entre commerces de proximité, écoles et transports, ${ville.name} concentre beaucoup de déplacements aux heures de pointe: d’où l’importance d’un serrurier qui connaît les accès (interphones, parkings, résidences fermées) pour intervenir sans perdre de temps.`,
+      `Sur ${ville.name}, on retrouve une mixité d’habitats — immeubles, maisons, zones d’activités — ce qui impose des scénarios variés: portes standard, portes renforcées, accès communs. Notre méthode reste la même: diagnostic rapide, devis annoncé, travail propre.`,
+      `La vie locale à ${ville.name} s’organise souvent autour des grands axes et des quartiers résidentiels. En urgence, le bon réflexe est d’expliquer précisément l’adresse et l’accès: cela permet d’annoncer un délai réaliste et d’arriver avec le bon matériel.`,
+      `Les habitants de ${ville.name} alternent trajets domicile–travail et vie de quartier; les urgences serrurerie arrivent souvent au retour ou tôt le matin. Nous restons disponibles 24h/24 pour sécuriser et éviter une nuit avec une porte mal fermée.`,
+    ] as const,
+    seed,
+    30,
+  );
 
   const testimonials = [
     {
@@ -104,27 +117,6 @@ export function VillePageTemplate({ slug }: Props) {
         7,
       ),
     },
-    ...(isPriority
-      ? ([
-          {
-            name: pick(["Fatou", "Jean", "Camille", "Mehdi", "Sarah", "Romain"] as const, seed, 11),
-            quartier: pick(
-              ville.quartiers?.length ? ville.quartiers : (["Centre", "Quartier commerces", "Proche transports"] as const),
-              seed,
-              12,
-            ),
-            text: pick(
-              [
-                "Devis clair au téléphone, intervention rapide et conseils de sécurisation pertinents.",
-                "Porte qui accroche depuis des semaines: réglage + remplacement cylindre, fermeture enfin fluide.",
-                "Après sinistre, facture détaillée fournie pour l’assurance. Très rassurant.",
-              ] as const,
-              seed,
-              13,
-            ),
-          },
-        ] as const)
-      : []),
   ] as const;
 
   const baseFaq = [
@@ -223,16 +215,19 @@ export function VillePageTemplate({ slug }: Props) {
         </nav>
 
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-          Serrurier {ville.name} ({ville.cp}) | Ouverture Porte · Blindage · Vitrier Urgence 24h/24
+          Serrurier {ville.name} 94 ({ville.cp}) — Ouverture porte, urgence 24h/24
         </h1>
+        <p className="mt-4 rounded-2xl border-2 border-brand-orange/50 bg-orange-50 px-4 py-3 text-center text-lg font-bold text-slate-900 sm:text-xl">
+          Intervention en {delai} à {ville.name}
+        </p>
         <p className="mt-4 max-w-3xl text-sm text-slate-700">
-          {introHint}. Intervention en <strong>{delai}</strong> en moyenne. Devis gratuit, prix annoncés avant intervention, urgence {SITE_CONFIG.openingHours}.
+          {introHint}. Devis gratuit, prix annoncés avant intervention, urgence {SITE_CONFIG.openingHours}.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
             href={SITE_CONFIG.phoneHref}
-            className="rounded-xl bg-brand-orange px-6 py-4 text-center text-base font-semibold text-white shadow-sm"
+            className="rounded-xl bg-brand-orange px-6 py-4 text-center text-lg font-bold text-white shadow-md"
           >
             📞 {SITE_CONFIG.phone}
           </Link>
@@ -249,6 +244,9 @@ export function VillePageTemplate({ slug }: Props) {
             <h2 className="text-lg font-semibold text-slate-900">Délai d’intervention à {ville.name}</h2>
             <p className="mt-3 text-sm text-slate-700">
               Délai moyen: <strong>{delai}</strong>. En cas d’urgence (porte claquée, clé cassée, effraction), on priorise la mise en sécurité.
+            </p>
+            <p className="mt-3 text-sm text-slate-700">
+              Rues principales souvent desservies: <strong>{rues.join(" · ")}</strong>.
             </p>
             <p className="mt-3 text-sm text-slate-700">
               Quartiers couverts: <strong>{quartiers}</strong>.
@@ -286,6 +284,20 @@ export function VillePageTemplate({ slug }: Props) {
           </div>
         </section>
 
+        <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="text-xl font-bold tracking-tight text-slate-900">Rues & quartiers à {ville.name}</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-700">
+            Nous intervenons régulièrement le long des axes où circulent les riverains — notamment{" "}
+            <strong>{rues.slice(0, 3).join(", ")}</strong> — ainsi que dans les quartiers suivants:{" "}
+            <strong>{quartiers}</strong>. Indiquez l’accès (code, interphone, parking) pour optimiser le délai.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900">La vie locale à {ville.name}</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-700">{vieLocale}</p>
+        </section>
+
         <section className="mt-12">
           <h2 className="text-2xl font-bold tracking-tight text-slate-900">
             Serrurier à {ville.name}: service local, prix transparents
@@ -311,7 +323,7 @@ export function VillePageTemplate({ slug }: Props) {
 
         <section className="mt-12">
           <h2 className="text-2xl font-bold tracking-tight text-slate-900">Avis locaux</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
             {testimonials.map((t) => (
               <article key={`${t.name}-${t.quartier}`} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="text-sm font-semibold text-slate-900">

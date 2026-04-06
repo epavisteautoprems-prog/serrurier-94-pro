@@ -9,7 +9,9 @@ export function StickyTopBar() {
           href={SITE_CONFIG.phoneHref}
           className="flex-1 text-xs font-semibold sm:text-sm"
         >
-          🚨 URGENCE 24h/24 · 📞 {SITE_CONFIG.phone} · ⏱️ Intervention {SITE_CONFIG.delai}
+          🚨 URGENCE 24h/24 · 📞{" "}
+          <span className="text-base font-extrabold tracking-wide sm:text-lg">{SITE_CONFIG.phone}</span> · ⏱️
+          Intervention {SITE_CONFIG.delai}
         </Link>
         <Link
           href={SITE_CONFIG.phoneHref}

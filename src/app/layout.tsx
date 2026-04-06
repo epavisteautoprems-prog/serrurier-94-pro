@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { StickyTopBar } from "@/components/layout/StickyTopBar";
 import { PriceBand } from "@/components/layout/PriceBand";
 import { Header } from "@/components/layout/Header";
+import { TrustSignalsStrip } from "@/components/layout/TrustSignalsStrip";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingCTA } from "@/components/layout/FloatingCTA";
 import { ClientEnhancements } from "@/components/analytics/ClientEnhancements";
@@ -14,6 +15,7 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  adjustFontFallback: true,
   fallback: ["system-ui", "arial"],
 });
 
@@ -68,6 +70,7 @@ export default function RootLayout({
         <StickyTopBar />
         <PriceBand />
         <Header />
+        <TrustSignalsStrip />
         <main className="flex-1">{children}</main>
         <Footer />
         <FloatingCTA />

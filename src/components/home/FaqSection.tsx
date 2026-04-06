@@ -105,6 +105,46 @@ export function FaqSection() {
       q: "Quel est le délai pour remplacer une serrure ?",
       a: "Souvent le jour même selon stock et modèle, sinon sous 24–48h pour références spécifiques.",
     },
+    {
+      q: "Quel est le prix d’une ouverture de porte à Créteil ou Vincennes ?",
+      a: "Les tarifs de base sont identiques sur le 94 (à partir de 89€ en journée selon configuration). Le devis est précisé au téléphone puis confirmé sur place: pas de grille “par ville” cachée, seulement la complexité réelle de la porte.",
+    },
+    {
+      q: "Le prix change-t-il entre Vitry, Saint-Maur et Champigny ?",
+      a: "Non pour la grille de base: ce qui fait varier le prix, c’est la porte (standard, blindée, multipoints) et l’urgence, pas le code postal. Le déplacement est annoncé dans le devis.",
+    },
+    {
+      q: "Quel délai d’intervention pour le secteur de Fontenay / Vincennes ?",
+      a: "Sur ces axes centraux, comptez souvent 15–25 minutes selon trafic. Nous annonçons un créneau réaliste au téléphone en fonction de l’heure et des accès (parking, résidence fermée).",
+    },
+    {
+      q: "Et pour le sud du 94 (Sucy, Bonneuil, Chennevières) ?",
+      a: "Les délais peuvent aller vers 30–45 minutes en fin de journée selon distance et embouteillages. En urgence, on priorise quand même la mise en sécurité et on vous indique l’ordre de passage.",
+    },
+    {
+      q: "Quelles marques de serrures et cylindres proposez-vous ?",
+      a: "Nous intervenons sur les grandes marques du marché (Fichet, Vachette, Bricard, Mul-T-Lock, Abus, Yale, etc.) et des équivalents certifiés. Le choix dépend de votre porte, de l’exigence A2P et du budget.",
+    },
+    {
+      q: "Puis-je être remboursé par mon assurance habitation ?",
+      a: "Souvent oui après effraction ou sinistre couvert, selon votre contrat. Nous fournissons devis et facture détaillée; gardez aussi l’avis de dépôt de plainte si demandé par l’assureur.",
+    },
+    {
+      q: "L’assurance exige-t-elle une serrure A2P pour rembourser ?",
+      a: "Parfois, surtout après effraction ou pour certains contrats. Nous vous indiquons si une certification A2P est pertinente pour votre dossier et proposons du matériel adapté.",
+    },
+    {
+      q: "Quelle différence entre un artisan serrurier et une grande société nationale ?",
+      a: "Un artisan local fixe souvent le prix avant intervention, connaît les accès du 94 et assure le suivi. Les grandes structures peuvent sous-traiter avec des tarifs opaques: exigez toujours un devis écrit et le détail des pièces.",
+    },
+    {
+      q: "Comment comparer deux devis serrurerie dans le 94 ?",
+      a: "Vérifiez la description des pièces (références, garantie), la main d’œuvre, le déplacement, et si le prix est ferme avant intervention. Méfiez-vous des tarifs “à partir de” sans visite ni photo.",
+    },
+    {
+      q: "Proposez-vous des cylindres haute sécurité toutes marques ?",
+      a: "Oui, selon compatibilité: cylindres européens, défenseurs, protections anti-crochetage. Nous recommandons un niveau cohérent avec votre porte et votre assurance.",
+    },
   ] as const;
 
   const jsonLd = faqPageJsonLd(qa.map((x) => ({ question: x.q, answer: x.a })));

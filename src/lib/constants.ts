@@ -33,7 +33,14 @@ export const SITE_CONFIG = {
   phoneHref: "tel:+33187667126",
   email: "depannage.serrurierpro94@gmail.com",
   url: "https://www.serrurier-94-pro.fr",
+  /** Lien Google Maps — recherche Val-de-Marne (à remplacer par la fiche établissement si besoin) */
+  googleMapsUrl:
+    "https://www.google.com/maps/search/serrurier+val-de-marne+94/@48.79,2.45,11z",
+  experienceYears: 15,
   address: "Val-de-Marne (94), Île-de-France",
+  /** Horaires détaillés affichés footer / confiance */
+  horairesDetail:
+    "Urgence serrurerie : 24h/24, 7j/7 (y compris week-ends et jours fériés). Rendez-vous non urgents : sur créneau selon disponibilité.",
   openingHours: "24h/24 - 7j/7",
   rating: 4.9,
   reviewCount: 312,

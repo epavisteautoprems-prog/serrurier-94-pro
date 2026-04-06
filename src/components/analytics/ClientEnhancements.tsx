@@ -25,37 +25,46 @@ const ConversionTracker = dynamic(
 );
 
 export function ClientEnhancements() {
-  const [enabled, setEnabled] = useState(false);
+  const [phoneUi, setPhoneUi] = useState(false);
+  const [heavyWidgets, setHeavyWidgets] = useState(false);
 
   useEffect(() => {
-    const enable = () => setEnabled(true);
-
-    // Defer non-critical widgets to idle time to reduce initial JS/INP.
     const w = window as unknown as {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
     };
 
+    // Bouton téléphone en premier (léger) — meilleur LCP / INP sur mobile.
+    const showPhone = () => setPhoneUi(true);
+    const t0 = window.setTimeout(showPhone, 400);
+
+    const enableHeavy = () => setHeavyWidgets(true);
     if (typeof w.requestIdleCallback === "function") {
-      const id = w.requestIdleCallback(enable, { timeout: 1500 });
+      const id = w.requestIdleCallback(enableHeavy, { timeout: 2800 });
       return () => {
+        window.clearTimeout(t0);
         if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(id);
       };
     }
 
-    const t = window.setTimeout(enable, 600);
-    return () => window.clearTimeout(t);
+    const t1 = window.setTimeout(enableHeavy, 2000);
+    return () => {
+      window.clearTimeout(t0);
+      window.clearTimeout(t1);
+    };
   }, []);
-
-  if (!enabled) return null;
 
   return (
     <>
-      <LiveInterventionCounter />
-      <FloatingPhoneButton />
-      <CallbackWidget />
-      <ChatWidget />
-      <ConversionTracker />
+      {phoneUi ? <FloatingPhoneButton /> : null}
+      {heavyWidgets ? (
+        <>
+          <LiveInterventionCounter />
+          <CallbackWidget />
+          <ChatWidget />
+          <ConversionTracker />
+        </>
+      ) : null}
     </>
   );
 }

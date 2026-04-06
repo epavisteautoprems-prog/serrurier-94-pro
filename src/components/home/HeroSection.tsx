@@ -25,10 +25,15 @@ export function HeroSection() {
               Rideau métallique • Disponible {SITE_CONFIG.openingHours}
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <p className="mt-6 text-center text-3xl font-extrabold tracking-tight sm:text-left sm:text-4xl md:text-5xl">
+              <Link href={SITE_CONFIG.phoneHref} className="text-brand-orange underline decoration-2 underline-offset-4 hover:text-white">
+                {SITE_CONFIG.phone}
+              </Link>
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 href={SITE_CONFIG.phoneHref}
-                className="animate-pulse rounded-xl bg-brand-orange px-6 py-4 text-center text-base font-semibold text-white shadow-sm transition hover:bg-brand-orange/90"
+                className="animate-pulse rounded-xl bg-brand-orange px-6 py-5 text-center text-lg font-bold text-white shadow-lg transition hover:bg-brand-orange/90 sm:text-xl"
               >
                 📞 Urgence : {SITE_CONFIG.phone}
               </Link>

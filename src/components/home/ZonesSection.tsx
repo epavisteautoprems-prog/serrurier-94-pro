@@ -19,7 +19,8 @@ export function ZonesSection() {
               href={`/serrurier-${v.slug}`}
               className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:border-slate-300 hover:text-brand-navy"
             >
-              {v.name} <span className="text-xs font-medium text-slate-500">({v.cp})</span>
+              Serrurier {v.name}{" "}
+              <span className="text-xs font-medium text-slate-500">({v.cp})</span>
             </Link>
           ))}
         </div>
